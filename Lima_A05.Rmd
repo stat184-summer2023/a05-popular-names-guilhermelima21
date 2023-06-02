@@ -110,6 +110,7 @@ For this activity I will choose the names: "Wolfgang", "Cyrilla", "Donato", "Zet
 We will use the filter function to filter for the names chosen, then we will use the group_by function to group the filtered names by name and year. We will then use the summarise function to create a new column counting the total births per year for each name. 
 
 We can then view our glyph ready data set with functions like head, glimpse, View, and summary. 
+
 ### Step 6
 
 [This should be done by hand on paper, nothing to show in the HTML doc]
@@ -118,13 +119,13 @@ We can then view our glyph ready data set with functions like head, glimpse, Vie
 
 ```{r}
 ## Create my glyph ready data set here
-SelectedNames <- BabyNames %>% filter(name %in% c("Wolfgang","Cyrilla","Donato","Zeth","Aneka")) %>% group_by(year,name) %>% summarise(total = sum(count) ) 
+GlyphReadyForm <- BabyNames %>% filter(name %in% c("Wolfgang","Cyrilla","Donato","Zeth","Aneka")) %>% group_by(year,name) %>% summarise(total = sum(count) ) 
 
 # inspect the result
-head(SelectedNames)
-glimpse(SelectedNames)
-View(SelectedNames)
-summary(SelectedNames)
+head(GlyphReadyForm)
+glimpse(GlyphReadyForm)
+View(GlyphReadyForm)
+summary(GlyphReadyForm)
 
 ```
 
@@ -146,8 +147,12 @@ If you prepared your `GlyphReadyForm` data set correctly, you should just be abl
 
 
 ```{r}
-#My code here 
-
+GlyphReadyForm %>%
+  ggplot(aes(x = year, y = total, group = name)) + 
+  geom_line(size = 1, alpha = 0.5, aes(color = name)) + 
+  ylab("Popularity") + 
+  xlab("Year") +
+  ggtitle("Popularity of Names Over Time")
 
 ```
 
